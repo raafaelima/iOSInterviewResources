@@ -43,6 +43,15 @@
 | Explain the difference between JSON and Codable in iOS. | JSON is a data interchange format, while Codable is a Swift protocol used to encode and decode data. Codable provides an easy way to convert Swift types to and from JSON representation without manually parsing or serializing the data. |
 | How would you handle caching in an iOS app? | Caching can be implemented using various techniques, such as NSCache, which provides an in-memory cache, or by storing data in a local database or file system. Caching improves performance by reducing the need for network requests or expensive computations. |
 
+# @escaping vs. Non-Escaping Closures
+| Question | Answer |
+|----------|--------|
+| What is the difference between an @escaping and non-escaping closure in Swift? | An @escaping closure can outlive the function it's defined within and is used for asynchronous operations. It can be stored, passed as an argument, or used outside the scope of the enclosing function. Non-escaping closures, on the other hand, are executed within the scope of the enclosing function and cannot be stored or used outside that context. They are typically used for immediate or synchronous operations. |
+| How are @escaping closures commonly used in Swift? | @escaping closures are often used as completion handlers or callbacks in asynchronous operations. They are passed as arguments and executed at a later time, even after the enclosing function has returned. |
+| What considerations should be taken when using @escaping closures? | When a closure is marked as @escaping, explicit capture lists are often required to manage potential retain cycles. These capture lists help prevent strong reference cycles by capturing weak or unowned references to the objects the closure needs. Additionally, side effects and race conditions should be considered, as @escaping closures can escape the normal execution flow of the function. |
+| How do non-escaping closures differ from @escaping closures? | Non-escaping closures are executed synchronously within the scope of the enclosing function. They cannot be stored or used outside that function's execution context. Unlike @escaping closures, non-escaping closures do not require explicit capture lists, as they cannot create retain cycles. They are typically used for immediate or synchronous operations. |
+| What are some advantages of using non-escaping closures? | Non-escaping closures can be optimized by the compiler for better performance since they are executed synchronously. They are also simpler to work with, as they do not require explicit capture lists and cannot create retain cycles. |
+
 ## Memory Management and Performance
 | Question | Answer |
 |----------|--------|
@@ -65,7 +74,6 @@
 | What are the recommended practices for error handling with async/await in Swift? | It is recommended to handle errors using `do-catch` blocks when using async/await. By propagating errors using `throws` or using a Result type, you can ensure proper error handling and provide meaningful error messages to the caller. |
 | Can you mix async/await with traditional completion handlers or callbacks? | Yes, you can mix async/await with traditional completion handlers or callbacks using the `withUnsafeContinuation` function. This allows you to bridge between the two styles when working with APIs that still use completion handlers. |
 | How does the Swift runtime handle structured concurrency and task scheduling? | The Swift runtime uses cooperative scheduling to manage structured concurrent tasks. It utilizes work-stealing queues and thread pools to distribute tasks efficiently across available threads, ensuring optimal concurrency and resource utilization. |
-
 
 ## App Architecture and Design Patterns
 | Question | Answer |
